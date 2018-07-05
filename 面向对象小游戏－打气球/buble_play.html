@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>打气球🎈小游戏</title>
+    <style>
+        html,body{
+            height: 100%;
+            overflow: hidden;
+            background-color: #ccc;
+        }
+        div{
+            width: 250px;
+            height: 333px;
+            position: absolute;
+            background: url(img/ballons.png) no-repeat;
+            
+        }
+    </style>
+</head>
+<body>
+    <h2 id='Allscore'></h2>
+    <h2 id='time'></h2>
+    <script>
+        //面向对象技术，创建气球的构造函数
+        function Ballon(){
+            //列举气球的所有属性和方法、监听
+            this.dom = null;
+            this.x = null;
+            this.y = null;
+            //分数
+            this.score = null;
+
+            //初始化
+            this.init();
+            //绑定事件
+            this.bindEvent();
+            //把new出来的对象存放在全局数组中 便于管理
+            Ballons.push(this);
+        }
+
+        //init() 方法
+        Ballon.prototype.init = function(){
+            //上DOM树
+            this.dom = document.createElement("div");
+            document.body.appendChild(this.dom);
+
+            //初始化x,y
+            this.y = document.documentElement.clientHeight;
+            this.x = parseInt(Math.random()*(document.documentElement.clientWidth - 250))
+            this.dom.style.top = this.y+'px';
+            this.dom.style.left = this.x+'px';
+
+            //产生一个随即分数 1~12分
+            this.score=parseInt(Math.random()*12)+1;
+
+            //显示对应分数的气球背景
+            // 1 2 3 4 (0 -250 -250*2 -250*3) 0
+            // 5 6 7 8 (0 -250 -250*2 -250*3) -333
+            // 9 10 11 12 (0 -250 -250*2 -250*3) -333*2
+            var cutX = -(this.score-1)%4 * 250;
+            var cutY =  0;
+            if(this.score>8){
+                cutY = -333*2;
+            }else if(this.score>4){
+                cutY = -333;
+            }
+
+            this.dom.style.backgroundPosition = cutX+'px '+cutY+'px';
+
+        }
+
+        Ballon.prototype.update = function(){
+            this.y -= this.score*4; //根据分数改变气球上升的速度
+            if(this.y<-350){
+                this.display();
+            }
+            this.dom.style.top = this.y+'px';
+
+        }
+
+        Ballon.prototype.display = function(){
+            document.body.removeChild(this.dom); //DOM树移除对象
+            for(var i=0;i<Ballons.length;i++){
+                if(this === Ballons[i]){
+                    Ballons.splice(i,1); //在数组移除气球
+                }
+            }
+        }
+
+        //点击事件设置
+        Ballon.prototype.bindEvent = function(){
+
+            var _this = this;
+            this.dom.onclick = function(){
+                scoreAll += _this.score
+                _this.display();
+            }
+        }
+
+        var time = document.getElementById('time');
+        var Allscore = document.getElementById('Allscore');
+
+        var Ballons = [];
+        var scoreAll = 0;
+        
+
+        //游戏总时间
+        var allTime = 20;
+        //定义帧数
+        var iframe = 0;
+
+        var timer = setInterval(function(){
+            iframe++;
+            if(iframe%10 == 0){
+                allTime--;
+                if(allTime == 0){
+                    clearInterval(timer);
+                }
+                //每秒创建4个气球
+                for(var i=0;i<4;i++){
+                    new Ballon();
+                }
+            }
+            //让Ballons里面的气球更新，用update()
+            Ballons.forEach((val,index)=>{
+                val.update();
+            })
+
+            time.innerHTML = allTime;
+            Allscore.innerHTML = scoreAll;
+            
+        },100)
+    </script>
+</body>
+</html>
