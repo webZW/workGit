@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>七巧板</title>
+</head>
+<body>
+    <canvas id='canvas' style='margin:auto; display:block; border:1px solid #f30'>
+
+    </canvas>
+
+    <script>
+        var canvas = document.getElementById('canvas');
+        canvas.width = 800;
+        canvas.height = 800;
+        var context = canvas.getContext('2d');
+        var Data = [
+            [{x:0,y:0},{x:800,y:0},{x:800,y:20},{color:'yellow'}],
+            [{x:0,y:0},{x:800,y:20},{x:800,y:80},{color:'blue'}],
+            [{x:0,y:0},{x:800,y:50},{x:400,y:100},{color:'blue'}],
+            ]
+
+        Data.forEach((item,index)=>{
+            context.beginPath();
+            
+            item.forEach((item2,index)=>{
+                if(index == 0){
+                    context.moveTo(item2.x,item2.y)
+                }else{
+                    context.lineTo(item2.x,item2.y)
+                }  
+                if (index+2 == item.length){ return }
+            })
+            
+            context.fillStyle = item[item.length-1].color;
+            context.fill();
+            context.closePath();
+        })
+        context.strokeStyle='red';
+        context.stroke();
+        
+    </script>
+</body>
+</html>

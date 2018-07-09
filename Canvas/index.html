@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <canvas id='canvas' style='border:1px solid #aaa; display:block; margin:auto'></canvas>
+    
+
+    <script>
+        window.onload = function(){
+            var canvas = document.getElementById('canvas');
+            canvas.width = 900;
+            canvas.height = 650;
+
+            var context = canvas.getContext('2d')
+            //使用context绘制
+            
+            context.beginPath(); //开始一个新一绘图
+            //设置绘制的状态
+            context.moveTo(100,100);
+            context.lineTo(500,500);
+            context.lineTo(100,500);
+            context.lineTo(100,100);
+            context.lineWidth = 5;
+
+            //设置颜色填充
+            context.fillStyle = 'rgb(2,100,300)' 
+            context.fill();
+
+            context.strokeStyle = '#005588';  //设置线条颜色
+        
+            context.stroke() //绘制线条
+
+            context.closePath();  //结束该绘图
+
+
+            context.beginPath(); //开始一个新一绘图
+            //设置绘制的状态
+            context.moveTo(400,100);
+            context.lineTo(500,700);
+            context.lineWidth = 5;
+
+            context.strokeStyle = 'red';  //设置线条颜色
+        
+            context.stroke() //绘制线条
+
+            context.closePath();  //结束该绘图
+
+
+
+        }
+        
+    </script>
+</body>
+</html>
+
+
+<!-- 
+
+    content
+ -->

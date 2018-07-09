@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>圆</title>
+</head>
+<body>
+    <canvas id='canvas' style='border:1px solid #aaa; display:block; margin:auto'></canvas>
+    
+
+    <script>
+        window.onload = function(){
+            var canvas = document.getElementById('canvas');
+            canvas.width = 900;
+            canvas.height = 650;
+
+            var context = canvas.getContext('2d')
+            //使用context绘制
+            context.lineWidth = 5
+            context.strokeStyle = '#058'
+            
+            context.arc(200,200,100,0,1.5*Math.PI,false);
+            context.stroke();
+
+        }
+        
+    </script>
+</body>
+</html>
+
+
+<!-- 
+
+    context.closePath()  当绘制的图形结束时不是封闭式的，会自动改为封闭式
+ -->
