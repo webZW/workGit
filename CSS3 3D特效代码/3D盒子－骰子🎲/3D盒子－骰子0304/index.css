@@ -1,0 +1,70 @@
+*{
+	margin:0;
+	padding: 0;
+}
+
+body{
+	perspective:1000px;	/*设置景深*/
+}
+
+#dice{
+	width: 200px;
+	height: 200px;
+	position: relative;
+	margin:150px auto;
+	font-size: 80px;
+	transform-style:preserve-3d;  /*设置3D画面*/
+	/*设置旋转源点*/
+	transform-origin: center center 100px;	
+}
+
+#dice>div{
+	color:white;
+	position: absolute;
+	font-weight: 400;
+	width: 100%;
+	height: 100%;
+	box-sizing: border-box;
+	-webkit-box-sizing:border-box;
+	border:1px solid gray;
+	text-align: center;
+	line-height: 200px;
+	/*opacity: 0.8;*/
+	backface-visibility: hidden;  /*背面元素不可见*/
+}
+
+#dice>div.front{
+	background-color:red;
+	transform: translateZ(200px);  /*设置Z轴偏移*/
+}
+
+#dice>div.back{
+	background-color:blue;
+	transform: rotateX(180deg);
+}
+
+#dice>div.left{
+	background-color:green;
+	transform-origin: left;			/*设置旋转源点*/
+	transform: rotateY(-90deg);     /*设置初始旋转*/
+}
+
+#dice>div.right{
+	background-color:yellow;
+	transform-origin: right;
+	transform: rotateY(90deg);
+}
+
+#dice>div.top{
+	background-color: gray;
+	transform-origin: top;
+	transform: rotateX(90deg);
+}
+
+#dice>div.bottom{
+	background-color: purple;
+	transform-origin: bottom;
+	transform: rotateX(-90deg);
+
+}
+

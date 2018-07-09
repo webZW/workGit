@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>放大境</title>
+	<style type="text/css">
+		*{
+			margin:0;
+			padding: 0;
+		}
+		#mainPic,#changePic{
+			width: 480px;
+			height: 270px;
+			display: inline-block;
+
+		}
+		#mainPic{
+			position: relative;
+			background-image: url(images/pic.jpg);
+			background-size: cover;
+			box-shadow: 0 0 2px 2px yellowgreen;
+			margin: 5px;
+		}
+		#changePic{
+			border:1px solid gray;
+			visibility:hidden;
+			background-image: url(images/pic.jpg);
+			/*background-size:960px auto;*/
+			background-position: 
+		}
+		#mainPic>div{
+			width: 50%;
+			height: 50%;
+			background-color: gray;
+			opacity: 0.7;
+			display: none;
+			position: absolute;
+			cursor: move;
+		}
+	</style>
+</head>
+<body>
+	<div id="mainPic">
+		<div></div>
+	</div>
+	<div id="changePic"></div>
+
+	<script type="text/javascript" src="js/index.js"></script>
+</body>
+</html>

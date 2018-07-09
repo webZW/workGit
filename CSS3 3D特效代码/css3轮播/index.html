@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Generator" content="EditPlus®">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <title>Document</title>
+  <style>
+	img{
+		vertical-align:bottom;
+	}
+	#parent{
+		width:1200px;
+		height:700px;
+		background:url(img/homepage_bg_02.png) no-repeat center;
+	}
+	.zong{
+		width:1164px;
+		height:291px;
+		-webkit-animation:change 10s linear infinite; 
+	}
+	.son{
+		margin-top:90px;
+		float:left;
+	}
+	#father{
+		margin-left:455px;
+		width:291px;
+		height:617px;
+		overflow:hidden;
+	}
+	.zong:hover{
+		animation-play-state:paused;
+	}
+	@-webkit-keyframes change{
+		0%{
+			margin-left:0;
+		}
+		30%{
+			margin-left:0;
+		}
+		33%{
+			margin-left:-291px;
+		}
+		63%{
+			margin-left:-291px;
+		}
+		66%{
+			margin-left:-582px;
+		}
+		97%{
+			margin-left:-582px;
+		}
+		100%{
+			margin-left:-873px;
+		}
+	}
+  </style>
+ </head>
+ <body>
+	<div id="parent">
+		<div id="father">
+			<div class="zong">
+				<div id="son1" class="son">
+					<img src="img/homepage_bg_02_slide_img_01.png">
+				</div>
+				<div id="son2" class="son">
+					<img src="img/homepage_bg_02_slide_img_02.png">
+				</div>
+				<div id="son3" class="son">
+					<img src="img/homepage_bg_02_slide_img_03.png">
+				</div>
+				<div id="son1" class="son">
+					<img src="img/homepage_bg_02_slide_img_01.png">
+				</div>
+			</div>
+		</div>
+	</div>
+
+ </body>
+</html>

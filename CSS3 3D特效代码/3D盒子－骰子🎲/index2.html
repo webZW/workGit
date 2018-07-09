@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>3D骰子🎲</title>
+	<link rel="stylesheet" type="text/css" href="index.css">
+</head>
+<body>
+	<div id ="dice">
+		<div class="front">1</div>
+		<div class="back">2</div>
+		<div class="left">3</div>
+		<div class="right">4</div>
+		<div class="top">5</div>
+		<div class="bottom">6</div>
+	</div>
+
+	<script type="text/javascript" src="jquery.js"></script>
+	<script type="text/javascript">
+		$(function(){
+			// 求骰子中间的宽度＝骰子的宽高／2+顶点与画面的长宽
+			var diceX = $("#dice").offset().left-$("#dice").width()/2;
+			var diceY = $("#dice").offset().top-$("#dice").height()/2;
+
+			// 求出移动的角度与位置
+			$(document).on("mousemove",function(even){
+				// console.log(even.pageX);
+				var moveX = even.pageX - diceX;
+				var moveY = even.pageY - diceY;
+				var moveZ = 0;
+				var deg = Math.sqrt(moveX*moveX+moveY*moveY+moveZ*moveZ);
+				var mX = moveX/deg;
+				var mY = moveY/deg;
+				var mZ = moveZ/deg;
+				$("#dice").css("transform","rotate3d("+mX+","+mY+","+mZ+","+deg+"deg)");
+			})
+		})
+	</script>
+</body>
+</html>

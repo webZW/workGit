@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+<head>
+    <meta charset="utf-8" />
+    <title>3D效果</title>
+    <script src="jquery.js"></script>
+    <script>
+        $(function(){
+            var cx=$(".cube").offset().left+$(".cube").width()/2;//获取宽度；
+            var cy=$(".cube").offset().top+$(".cube").height()/2;//获取高度；
+            //alert(cy)
+            $(document).mousemove(function(e){
+                var px= e.pageX-cx;
+                var py= e.pageY-cy;
+                var pz=0;
+                var m=Math.sqrt(px*px+py*py+pz*pz);
+                var mx=px/m;
+                var my=py/m;
+                var mz=pz/m;
+                $(".cube").css({
+                    transform:"rotate3d("+mx+","+my+","+mz+","+m+"deg)"
+                     /*x×deg y×deg z×deg deg正为正，负就是负角度*/
+                })
+            })
+
+        })
+    </script>
+    <style>
+        body {
+            perspective: 1000px;
+        }
+        .cube {
+            position: relative;
+            font-size: 80px;
+            width: 200px;height:200px;
+            margin: 150px auto;
+            transform-style: preserve-3d;
+            transform-origin:center center 100px;
+            /*transition:transform 1s linear;*/
+            /*transform: rotateY(80deg);*/
+        }
+        .cube > div {
+            position: absolute;
+            width: 200px;
+            height: 200px;
+            border: 1px solid #999;
+            color: white;
+            text-align: center;
+            line-height: 200px;
+        }
+        /*.cube:hover{*/
+            /*transform:rotateY(180deg);*/
+        /*}*/
+        .front {
+            background:red;
+            transform:translateZ(200px);
+            transform-origin: top;
+        }
+        .top {
+            background:green;
+            transform: rotateX(90deg);
+            transform-origin: top;
+        }
+        .right {
+            background:pink;
+            transform: rotateY(90deg);
+            transform-origin: right;
+        }
+        .left {
+            background:orange;
+            transform: rotateY(-90deg);
+            transform-origin: left;
+        }
+        .bottom {
+            background:purple;
+            transform: rotateX(-90deg);
+            transform-origin: bottom;
+        }
+        .back {
+            background:blue;
+            transform:rotateY(180deg);
+        }
+    </style>
+</head>
+<body>
+<div class="cube">
+    <div class="front">1</div>
+    <div class="back">2</div>
+    <div class="right">3</div>
+    <div class="left">4</div>
+    <div class="top">5</div>
+    <div class="bottom">6</div>
+</div>
+</body>
+</html>
