@@ -1,0 +1,150 @@
+
+
+<!-- 
+
+全局安装webpack //较少
+cnpm install --global webpack@3.81 
+
+webpack ./src/main.js ./dist/bandle.js //指定打包入口出口文件 用于全局安装情况
+
+cnpm uninstall webpack //卸载
+
+－－－－－－－－－－－－－－－－－－－－－－－
+
+cnpm init -y  //初始化，默认进行
+cnpm i --save-dev webpack@3.81  //安装开发依赖的webpack
+
+开发规范目录结构
+    把源码放在src目录下
+    把打包的结果存放到dist目录中
+
+本地安装(必须)
+    推荐把webpack安装在本地的项目中(非全局)，打包工具可以跟着项目走，不会错漏
+    cnpm webpack --save－dev webpack@3.8.1 //指定安装webpack 3.8.1版本
+        --save      生产依赖 －－> 核心依赖，这些依赖将来上线也是需要的
+        --save-dev  开发依赖 －－> 下载包之后，会把包信息配置到devDependencies中，这个叫开发依赖，这些依赖只在开发阶段中，将来上线就不需要了
+
+        cnpm i --production 将来项目发布，只装生产依赖的第三方包 
+
+    webpack只是一个打包工具,项目需要上线,上线用的是打包后的结果，而不是用的这个工具，为了区分核心包依赖和开发工具依赖，通过--save-dev和--save来区分
+    
+    配置文件 webpack.config.js  //位于项目根目录
+
+    npm scripts
+        对于安装在项目中的webpack，需要配置npm scripts来使用
+        /*npm start 不需要写npm run start*/
+
+    通过npm run 命令来打包，实际上是执行 package.json 的 'scripts' 配置。
+    
+    "build":"webpack" 会自动找到项目根目录的webpack.config.js文件 ==> npm run build
+
+    const path = require("path"); //通过使用path来引入根目录配置
+    ...
+    path: path.join(__dirname,'./dist/')  //增加了 '__dirname' 根目录配置
+
+
+ES6导入导出
+
+    export
+
+    import
+
+=========******* Webpcak配置与包管理 *******==========
+
+
+    webpack 打包各种资源,webpack本身不支持打包其他资源，假如需要打包其他资源，需要结合对应的插件实现，这些插件在webpack中叫'loader'－即‘加载器’
+
+    打包css 
+        安装依赖 sudo cnpm install --save-dev style-loader css-loader
+        配置webpack.config.js  增加'module-rules'选项
+
+    打包less sass
+        安装依赖 sudo cnpm install less less-loader --save-dev
+        配置webpack.config.js  'module-rules'规则
+
+    打包图片
+        安装依赖 npm install -D file-loader
+        配置
+        打包
+            打包的时候，假如index.html在根目录运行的时候，图片资源路径无法访问，可以把index.html放到dist下去，但是这样不合适，dist一般放打包编译的结果，此时可以借助一个插件 html-webpack-plugin,
+
+            解决方案: 
+                1 安装依赖 cnpm i -D html-webpack-plugin
+                2 配置webpack.config.js  'plugins' 插件模块
+
+    开发工具
+        webpack-dev-server
+        每次手动打包很麻烦，即便在 json的‘build’增加 '--watch' 也不方便，还需要重新手动刷新浏览器
+    
+        webpack 给我们提供一个工具webpack-dev-server，帮我们实时监测代码改变，自动打包，打包完毕后自动刷新浏览器功能
+
+        安装依赖 cnpm i -D webpack-dev-server
+        配置 
+            1 webpack.config.js
+                devServer:{
+                    //配置webpack-dev-server的www目录
+                    contentBase:'./dist'
+                },
+
+            2 配置package.json 的 'dev'，开发运行模式
+                "dev":"webpack-dev-server --open"  // --open为自动运行
+
+    翻译js高级语法
+        cnpm i -D babel-loader babel-core babel-preset-env
+            bable只转换语法(如箭头函数),不翻译api(如forIndex)
+
+        babel-polyfill (提供低版本不支持的API)
+            1 作用:可以转换 js 的 api
+            2 配置 entry:['babel-polyfill','']
+
+        配置 transform-runtime
+            在打包过程中，babel 会在某些包里提供一些工具函数，这些工具函数可能会重复出现在多个模块，这样会导致打包体积过大，所以babel提供的 'babel-plugin-transform-runtime'就是解决文件复用，体积过大的问题
+
+            安装  1 sudo cnpm i -D babel-plugin-transform-runtime
+                  2 sudo cnpm install --save babel-runtime
+
+    
+                
+    webpack打包－单文件组件
+        需要安装vue-loader
+        安装 vue-loader  \ vue-template-compiler
+
+        配置Vue+Webpack环境
+            const { VueLoaderPlugin } = require('vue-loader');
+            plugins: [
+                new VueLoaderPlugin()
+            ],
+
+            rules:[{
+                test:/\.vue$/,
+                use:["vue-loader"]
+            }]
+
+
+    如何在webpack环境中，引入第三方包
+        通常情况下我们不打包第三方包，因为第三方包体积过大，和bundle一起打包会造成资源体积过大，所以我们还是通过script标签把第三方资源引入到资源页面中
+        1 下载
+            npm i vue
+        2 页面引入资源  <script src="node_modules/vue/dist/vue.js"></script>
+        3 配置
+            externals:{
+                //k  表示第三方包
+                //防止webpack将第三方包打包
+                vue:'Vue'    //vue 为vue文件，Vue为全局vue
+            },
+        4 加载使用 
+        'main.js'
+            import App from "./APP.vue"
+            new Vue({
+                el:"#app",
+                data:{
+                    return(){
+                        msg:'Hello'
+                    }
+                }
+            })
+
+        5 打包测试 npm run build
+
+    
+  

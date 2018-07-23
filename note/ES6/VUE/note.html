@@ -1,0 +1,10 @@
+组件
+1 概念：对视图的局部封装
+    vue 借鉴于 react思想   angular、react、vue都是组件化开发思想
+2 定义
+    全局注册 对通用的部分，比如轮播图、分页、导航 ==> Vue.component('my-comp',{ template:"<h1>我是组件</h1>" })
+
+    局部注册 new Vue({ el:'#app', component:{ my-comp:{ template:"<h1>我是局部组件</h1>" } }})
+
+单文件组件 .vue
+
